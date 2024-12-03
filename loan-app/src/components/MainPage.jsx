@@ -8,6 +8,7 @@ import CreateLoan from './CreateLoan'
 import LoanTable from './LoanTable'
 import ScheduleTable from './ScheduleTable'
 import LoanSchedule from './LoanSchedule'
+import ShareLoan from './ShareLoan'
 
 function MainPage() {
   const [idToUsername, setIdToUsername] = useState(new Map())
@@ -87,7 +88,11 @@ function MainPage() {
         loanSet={loanSet}
         userID={userID}
       />
-      
+      <ShareLoan 
+        userID={userID}
+        loanSet={loanSet}
+        usernameToId={usernameToID}
+      />
     </div> 
 
   );
