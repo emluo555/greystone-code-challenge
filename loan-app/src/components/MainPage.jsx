@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from "motion/react"
 import { getAllUsers, createUser, getUserLoans } from '../functions/apiCalls'
-import { makeUserMaps } from '../functions/setMaps'
+import { makeUserMaps, makeLoanMap } from '../functions/setMaps'
 import UserLogin from  './UserLogin'
 import CreateNewUser from './CreateNewUser'
 import CreateLoan from './CreateLoan'
 import LoanTable from './LoanTable'
+import ScheduleTable from './ScheduleTable'
+import LoanSchedule from './LoanSchedule'
 
 function MainPage() {
   const [idToUsername, setIdToUsername] = useState(new Map())
@@ -13,6 +15,7 @@ function MainPage() {
   const [username, setUsername] = useState('')
   const [userID, setUserID] = useState(null)
   const [userLoans, setUserLoans] = useState([])
+  const [loanSet, setLoanSet] = useState(new Set())
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,14 +31,19 @@ function MainPage() {
   }, [])
 
   useEffect(() => {
-    const fetchLoans = async () => {
-      const allLoans = await getUserLoans(userID)
-      if (allLoans) {
-        setUserLoans(allLoans)
+    if (userID) {
+      const fetchLoans = async () => {
+        const allLoans = await getUserLoans(userID)
+        if (allLoans) {
+          setUserLoans(allLoans)
+          makeLoanMap(allLoans, setLoanSet)
+        }
       }
+      fetchLoans()
     }
-    fetchLoans()
   }, [userID])
+
+  
 
   return (
     <div>
@@ -65,11 +73,21 @@ function MainPage() {
       />
       <CreateLoan 
         owner_id={userID}
+        userLoans={userLoans}
+        setUserLoans={setUserLoans}
+        loanSet={loanSet}
+        setLoanSet={setLoanSet}
       />
       <LoanTable 
         loanData={userLoans}
         idToUsername={idToUsername}
       />
+      <LoanSchedule
+        loanData={userLoans}
+        loanSet={loanSet}
+        userID={userID}
+      />
+      
     </div> 
 
   );

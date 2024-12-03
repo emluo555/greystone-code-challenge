@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TextField, Button, Box, Grid2, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import { createLoan } from '../functions/apiCalls'
 
-function CreateLoan({owner_id}) {
+function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
     const [amountField, setAmountField] = useState('')
     const [aprField, setAprField] = useState('')
     const [termField, setTermField] = useState('')
@@ -14,7 +14,9 @@ function CreateLoan({owner_id}) {
         console.log(parseFloat(amountField), parseFloat(aprField), parseInt(termField), statusField, owner_id)
         const res = await createLoan(parseFloat(amountField), parseFloat(aprField), parseInt(termField), statusField, owner_id)
         if (res) {
-            console.log('success')
+            console.log('success', res)
+            setUserLoans([...userLoans, res]) // add the new loan to the state variable
+            setLoanSet(loanSet.add(res.id))
         }
         resetForm()
     }

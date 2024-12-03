@@ -11,8 +11,9 @@ export const getAllUsers = async () => {
       if (!response.ok) {
         throw new Error(`Error status: ${response.status}`)
       }
-  
+      
       const res = await response.json()
+      console.log(res)
       return res
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -50,7 +51,7 @@ export const createLoan = async (amount, apr, term, status, owner_id) => {
           headers: {
             'Content-Type': 'application/json', 
           },
-          body: JSON.stringify({amount, apr, term, status, owner_id }), 
+          body: JSON.stringify({amount, apr, term, status, owner_id}), 
         })
     
         if (!response.ok) {
@@ -88,9 +89,9 @@ export const getUserLoans = async (user_id) => {
 }
 
 // Get user loans
-export const getAmortizationTerm = async (loan_id) => {
+export const getAmortizationTerm = async (loan_id,user_id) => {
     try {
-        const response = await fetch(`https://gl-interview.azurewebsites.net/loans/${loan_id}`, {
+        const response = await fetch(`https://gl-interview.azurewebsites.net/loans/${loan_id}?user_id=${user_id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json', 
@@ -100,7 +101,6 @@ export const getAmortizationTerm = async (loan_id) => {
         if (!response.ok) {
           throw new Error(`Error Status: ${response.status}`)
         }
-    
         const res = await response.json()
         console.log('loan schedule:', res)
         return res
@@ -112,7 +112,7 @@ export const getAmortizationTerm = async (loan_id) => {
 // share loan
 export const shareLoan = async (loan_id, owner_id, user_id) => {
     try {
-        const response = await fetch('https://gl-interview.azurewebsites.net/users', {
+        const response = await fetch('https://gl-interview.azurewebsites.net/users', { // check this 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json', 

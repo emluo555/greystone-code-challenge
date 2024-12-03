@@ -10,3 +10,11 @@ export const makeUserMaps = (userData) => {
     
     return { idToUsername, usernameToID }
 }
+
+export const makeLoanMap = (loanData, setLoanSet) => {
+    const loanMap = new Set()
+    loanData.forEach(loan => {
+        loanMap.add(loan.id)
+    })
+    setLoanSet(loanMap)
+}
