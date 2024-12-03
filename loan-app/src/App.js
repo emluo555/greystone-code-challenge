@@ -1,4 +1,5 @@
-import MainPage from "components/MainPage"
+import './index.css';
+import MainPage from './components/MainPage'
 
 function App() {
 

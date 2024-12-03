@@ -6,7 +6,7 @@ import { makeUserMaps } from '../functions/setMaps';
 function MainPage() {
 
   return (
-    <div>
+    <div className="text-3xl font-bold underline">
       main page
     </div>
   );
