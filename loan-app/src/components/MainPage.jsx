@@ -4,6 +4,7 @@ import { getAllUsers, createUser } from '../functions/apiCalls'
 import { makeUserMaps } from '../functions/setMaps'
 import UserLogin from  './UserLogin'
 import CreateNewUser from './CreateNewUser'
+import CreateLoan from './CreateLoan'
 
 function MainPage() {
   const [idToUsername, setIdToUsername] = useState(new Map())
@@ -54,7 +55,9 @@ function MainPage() {
         usernameToID={usernameToID}
         idToUsername={idToUsername}
       />
-      
+      <CreateLoan 
+        owner_id={userID}
+      />
     </div> 
 
   );

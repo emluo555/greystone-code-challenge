@@ -45,7 +45,7 @@ export const createUser = async (username) => {
 // Create new loan
 export const createLoan = async (amount, apr, term, status, owner_id) => {
     try {
-        const response = await fetch('https://gl-interview.azurewebsites.net/users', {
+        const response = await fetch('https://gl-interview.azurewebsites.net/loans', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json', 
