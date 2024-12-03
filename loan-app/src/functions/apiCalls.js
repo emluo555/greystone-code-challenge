@@ -13,7 +13,6 @@ export const getAllUsers = async () => {
       }
   
       const res = await response.json()
-      console.log(res)
       return res
     } catch (error) {
       console.error('Error fetching users:', error);
