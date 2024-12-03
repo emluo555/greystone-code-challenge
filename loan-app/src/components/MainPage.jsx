@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from "motion/react"
-import { getAllUsers, createUser } from '../functions/apiCalls'
+import { getAllUsers, createUser, getUserLoans } from '../functions/apiCalls'
 import { makeUserMaps } from '../functions/setMaps'
 import UserLogin from  './UserLogin'
 import CreateNewUser from './CreateNewUser'
 import CreateLoan from './CreateLoan'
+import LoanTable from './LoanTable'
 
 function MainPage() {
   const [idToUsername, setIdToUsername] = useState(new Map())
   const [usernameToID, setUsernameToID] = useState(new Map())
   const [username, setUsername] = useState('')
   const [userID, setUserID] = useState(null)
+  const [userLoans, setUserLoans] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllUsers();
-      if (data) {
-        const { idToUsername, usernameToID } = makeUserMaps(data)
+      const userData = await getAllUsers();
+      if (userData) {
+        const { idToUsername, usernameToID } = makeUserMaps(userData)
 
         setIdToUsername(idToUsername)
         setUsernameToID(usernameToID)
       }
     }
-
     fetchData()
-
   }, [])
 
-  
+  useEffect(() => {
+    const fetchLoans = async () => {
+      const allLoans = await getUserLoans(userID)
+      if (allLoans) {
+        setUserLoans(allLoans)
+      }
+    }
+    fetchLoans()
+  }, [userID])
 
   return (
     <div>
@@ -57,6 +65,10 @@ function MainPage() {
       />
       <CreateLoan 
         owner_id={userID}
+      />
+      <LoanTable 
+        loanData={userLoans}
+        idToUsername={idToUsername}
       />
     </div> 
 
