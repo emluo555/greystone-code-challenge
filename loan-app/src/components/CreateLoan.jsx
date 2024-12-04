@@ -7,6 +7,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
     const [aprField, setAprField] = useState('')
     const [termField, setTermField] = useState('')
     const [statusField, setStatusField] = useState('')
+    const [showForm, setShowForm] = useState(false)
 
     const handleCreateLoan = async (e) => {
         e.preventDefault()
@@ -17,6 +18,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
             console.log('success', res)
             setUserLoans([...userLoans, res]) // add the new loan to the state variable
             setLoanSet(loanSet.add(res.id))
+            setShowForm(false)
         }
         resetForm()
     }
@@ -29,9 +31,12 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
     }
 
     return (
-       <div>
-            <form onSubmit={handleCreateLoan}>
-                <Grid2>
+       <Grid2 width={"50%"} paddingRight={'2%'}>
+            <Button variant="outlined" fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
+                <p>Create New Loan</p>
+            </Button>
+            {showForm && <form onSubmit={handleCreateLoan}>
+                <Grid2 display={'flex'} flexDirection={'column'} width={'100%'} gap={2} paddingTop={2}>
                     <TextField
                         label="Loan Amount"
                         value={amountField}
@@ -39,6 +44,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         placeholder="Please enter loan amount"
                         variant="outlined"
                         required
+                        fullWidth
                     />
                     <TextField
                         label="Loan APR"
@@ -47,6 +53,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         placeholder="Please enter APR"
                         variant="outlined"
                         required
+                        fullWidth
                     />
                     <TextField
                         label="Loan Term"
@@ -55,8 +62,9 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         placeholder="Please enter loan term"
                         variant="outlined"
                         required
+                        fullWidth
                     />
-                    <FormControl fullWidth>
+                    <FormControl fullWidth >
                         <InputLabel>Status</InputLabel>
                         <Select
                             value={statusField}
@@ -68,11 +76,11 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         </Select>
                     </FormControl>
                     <Button type="submit" variant="contained" color="primary">
-                        Create New Loan
+                        Submit New Loan
                     </Button>
                 </Grid2>
-            </form>
-       </div>
+            </form>}
+       </Grid2>
      )
 }
 

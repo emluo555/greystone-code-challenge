@@ -86,29 +86,33 @@ function MainPage() {
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1, y: 0, transition:{ duration: 1 }}} > 
-        <Grid2>
+        <Grid2 display={"flex"} flexDirection={"column"} paddingX={'5%'} paddingY={'3%'} container>
           <h2>Welcome, {username}!</h2>
-          <CreateLoan 
-            owner_id={userID}
-            userLoans={userLoans}
-            setUserLoans={setUserLoans}
-            loanSet={loanSet}
-            setLoanSet={setLoanSet}
-          />
-          <LoanTable 
-            loanData={userLoans}
-            idToUsername={idToUsername}
-          />
+          <Grid2 display={'flex'} width={'100%'} justifyContent={'center'}>
+            <CreateLoan 
+              owner_id={userID}
+              userLoans={userLoans}
+              setUserLoans={setUserLoans}
+              loanSet={loanSet}
+              setLoanSet={setLoanSet}
+            />
+            <ShareLoan 
+              userID={userID}
+              loanSet={loanSet}
+              usernameToId={usernameToID}
+            />
+          </Grid2>
           <LoanSchedule
             loanData={userLoans}
             loanSet={loanSet}
             userID={userID}
           />
-          <ShareLoan 
-            userID={userID}
-            loanSet={loanSet}
-            usernameToId={usernameToID}
+          <LoanTable 
+            loanData={userLoans}
+            idToUsername={idToUsername}
           />
+          
+          
         </Grid2>
         </motion.div> }
       

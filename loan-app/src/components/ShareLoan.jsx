@@ -3,6 +3,7 @@ import { TextField, Button, Grid2, Modal, Box} from '@mui/material'
 import { shareLoan } from '../functions/apiCalls'
 
 function ShareLoan({userID, loanSet, usernameToId}) {
+    const [showForm, setShowForm] = useState(false)
     const [loanID, setLoanID] = useState('')
     const [shareToUsername, setShareToUsername] = useState('')
     const [shareUserID, setShareUserID] = useState('')
@@ -72,9 +73,13 @@ function ShareLoan({userID, loanSet, usernameToId}) {
     }
 
     return (
-        <div>
+        <Grid2 width={"50%"} paddingLeft={'2%'}>
+            <Button variant="outlined" fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
+                <p>Share a Loan</p>
+            </Button>
+            {showForm &&
            <form onSubmit={handleShareLoan} id={"shareLoan"}>
-                <Grid2>
+           <Grid2 display={'flex'} flexDirection={'column'} gap={2} paddingTop={2}>
                     <TextField
                         label="Loan ID"
                         value={loanID}
@@ -116,8 +121,8 @@ function ShareLoan({userID, loanSet, usernameToId}) {
                         
                     </Modal>
                 </Grid2> 
-            </form>
-        </div>
+            </form>}
+        </Grid2>
     )
 }
 export default ShareLoan
