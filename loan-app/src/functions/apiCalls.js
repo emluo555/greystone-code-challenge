@@ -32,14 +32,16 @@ export const createUser = async (username) => {
       });
   
       if (!response.ok) {
-        throw new Error(`Error status: ${response.status}`)
+        const error = await response.json()
+        throw new Error(error.detail || `Error status: ${response.status}`)
       }
   
       const res = await response.json()
       console.log('User created:', res) 
       return res;
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error('Error creating user:', error.message)
+
     }
 }
 

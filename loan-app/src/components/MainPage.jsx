@@ -9,8 +9,10 @@ import LoanTable from './LoanTable'
 import ScheduleTable from './ScheduleTable'
 import LoanSchedule from './LoanSchedule'
 import ShareLoan from './ShareLoan'
+import { Grid2 } from '@mui/material'
 
 function MainPage() {
+  const [loginStatus, setLoginStatus] = useState(false)
   const [idToUsername, setIdToUsername] = useState(new Map())
   const [usernameToID, setUsernameToID] = useState(new Map())
   const [username, setUsername] = useState('')
@@ -44,58 +46,75 @@ function MainPage() {
     }
   }, [userID])
 
-  
-
   return (
     <div>
-      <div>
-        TEST
-      </div>
-      <motion.div className="text-3xl font-bold underline"
-          initial={{ opacity: 0, y: -10 }} 
-          animate={{ opacity: 1, y: 0, transition:{ duration: 2 } }} 
-          >
-        <div>
-        Welcome
-        </div>
-      </motion.div>
-      <UserLogin 
-        usernameToID={usernameToID}
-        setUsername={setUsername}
-        setUserID={setUserID}
-      />
-      <CreateNewUser 
-        setUsername={setUsername}
-        setUserID={setUserID}
-        setIdToUsername={setIdToUsername}
-        setUsernameToID={setUsernameToID}
-        usernameToID={usernameToID}
-        idToUsername={idToUsername}
-      />
-      <CreateLoan 
-        owner_id={userID}
-        userLoans={userLoans}
-        setUserLoans={setUserLoans}
-        loanSet={loanSet}
-        setLoanSet={setLoanSet}
-      />
-      <LoanTable 
-        loanData={userLoans}
-        idToUsername={idToUsername}
-      />
-      <LoanSchedule
-        loanData={userLoans}
-        loanSet={loanSet}
-        userID={userID}
-      />
-      <ShareLoan 
-        userID={userID}
-        loanSet={loanSet}
-        usernameToId={usernameToID}
-      />
+      {!loginStatus && 
+      <Grid2 marginLeft={"10%"} marginRight={"10%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} height={"90vh"}>
+        <motion.div className="text-3xl font-bold underline"
+            initial={{ opacity: 0, y: -75 }} 
+            animate={{ opacity: 1, y: 0, transition:{ duration: 1 } }} 
+            >
+          <div>
+          Welcome to Greystone's Loan Amortization Portal 
+          </div>
+        </motion.div>
+        <motion.div 
+            initial={{ opacity: 0, y: -10 }} 
+            animate={{ opacity: 1, y: 0, transition:{ duration: 1, delay: 1.1 } }} 
+            >
+        <Grid2 display={"flex"} gap={"5%"} marginTop={'3%'}>
+            <UserLogin 
+            usernameToID={usernameToID}
+            setUsername={setUsername}
+            setUserID={setUserID}
+            setLoginStatus={setLoginStatus}
+          />
+          <CreateNewUser 
+            setUsername={setUsername}
+            setUserID={setUserID}
+            setIdToUsername={setIdToUsername}
+            setUsernameToID={setUsernameToID}
+            usernameToID={usernameToID}
+            idToUsername={idToUsername}
+            setLoginStatus={setLoginStatus}
+          />
+        </Grid2>
+        </motion.div>
+      </Grid2>}
+      
+      {loginStatus &&
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1, y: 0, transition:{ duration: 1 }}} > 
+        <Grid2>
+          <h2>Welcome, {username}!</h2>
+          <CreateLoan 
+            owner_id={userID}
+            userLoans={userLoans}
+            setUserLoans={setUserLoans}
+            loanSet={loanSet}
+            setLoanSet={setLoanSet}
+          />
+          <LoanTable 
+            loanData={userLoans}
+            idToUsername={idToUsername}
+          />
+          <LoanSchedule
+            loanData={userLoans}
+            loanSet={loanSet}
+            userID={userID}
+          />
+          <ShareLoan 
+            userID={userID}
+            loanSet={loanSet}
+            usernameToId={usernameToID}
+          />
+        </Grid2>
+        </motion.div> }
+      
     </div> 
 
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage
