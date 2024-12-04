@@ -112,7 +112,7 @@ export const getAmortizationTerm = async (loan_id,user_id) => {
 // share loan
 export const shareLoan = async (loan_id, owner_id, user_id) => {
     try {
-        const response = await fetch('https://gl-interview.azurewebsites.net/users', { // check this 
+        const response = await fetch(`https://gl-interview.azurewebsites.net/loans/${loan_id}/share?owner_id=${owner_id}&user_id=${user_id}`, { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json', 

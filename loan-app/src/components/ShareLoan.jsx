@@ -14,7 +14,16 @@ function ShareLoan({userID, loanSet, usernameToId}) {
 
     const handleShareLoan = async (e) => {
         e.preventDefault()
-        console.log('share loan')
+        const loanIDInt = parseInt(loanID)
+        const userIDInt = parseInt(userID)
+        const shareUserIDInt = parseInt(shareUserID)
+
+        console.log(loanIDInt, userIDInt,shareUserIDInt)
+
+        const res = await shareLoan(loanIDInt, userIDInt, shareUserIDInt)
+        if (res) { 
+            console.log('success', res)
+        }
     }
     const handleConfirm = () => {
         const newErrors = {}
