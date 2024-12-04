@@ -8,7 +8,7 @@ import CreateLoan from './CreateLoan'
 import LoanTable from './LoanTable'
 import LoanSchedule from './LoanSchedule'
 import ShareLoan from './ShareLoan'
-import { Grid2 } from '@mui/material'
+import { Grid2, Button } from '@mui/material'
 
 function MainPage() {
   const [loginStatus, setLoginStatus] = useState(false)
@@ -91,14 +91,17 @@ function MainPage() {
         </Grid2>
         </motion.div>
       </Grid2>}
-      
+
        {/* Main page components: user's loan information after they login */}
       {loginStatus &&
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1, y: 0, transition:{ duration: 1 }}} > 
         <Grid2 display={"flex"} flexDirection={"column"} paddingX={'5%'} paddingY={'3%'} container gap={2}>
-          <h2 className='text-2xl font-bold pl-1'>Welcome, {username}!</h2>
+          <Grid2 display={"flex"} justifyContent={"space-between"}>
+            <h2 className='text-2xl font-bold pl-1'>Welcome, {username}!</h2>
+            <Button variant="outlined" onClick={()=>window.location.reload(false)} className='!rounded-2xl !font-bold !normal-case !text-base !px-10'>Logout</Button>
+          </Grid2>
           <Grid2 display={'flex'} width={'100%'} justifyContent={'center'} marginBottom={1}>
             <CreateLoan 
               owner_id={userID}
