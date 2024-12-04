@@ -50,7 +50,7 @@ function ScheduleTable({loanSchedule}) {
 
     
     return (
-        <Paper sx={{ height: 400, width: '80%' }}>
+        <Paper sx={{ height: 400, width: '100%' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}

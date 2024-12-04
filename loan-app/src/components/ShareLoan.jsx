@@ -32,9 +32,9 @@ function ShareLoan({userID, loanSet, usernameToId}) {
 
         // check errors with loanID
         const loanIdInt = parseInt(loanID)
-        if (isNaN(loanIdInt)) {
+        if (isNaN(loanIdInt) && loanIdInt >= 0) {
             newErrors["loanID"]=true
-            newHelperText["loanID"]="Loan Id must be a positive integer"
+            newHelperText["loanID"]="Loan ID must be a positive integer"
         }
         else if (!loanSet.has(loanIdInt)) {
             newErrors["loanID"]=true
