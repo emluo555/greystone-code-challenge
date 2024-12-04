@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from "motion/react"
-import { getAllUsers, createUser, getUserLoans } from '../functions/apiCalls'
+import { getAllUsers, getUserLoans } from '../functions/apiCalls'
 import { makeUserMaps, makeLoanMap } from '../functions/setMaps'
 import UserLogin from  './UserLogin'
 import CreateNewUser from './CreateNewUser'
 import CreateLoan from './CreateLoan'
 import LoanTable from './LoanTable'
-import ScheduleTable from './ScheduleTable'
 import LoanSchedule from './LoanSchedule'
 import ShareLoan from './ShareLoan'
 import { Grid2 } from '@mui/material'
@@ -20,6 +19,7 @@ function MainPage() {
   const [userLoans, setUserLoans] = useState([])
   const [loanSet, setLoanSet] = useState(new Set())
 
+  // Upon mount, get all users. This data is then used to check if an entered username exists
   useEffect(() => {
     const fetchData = async () => {
       const userData = await getAllUsers();
@@ -33,6 +33,7 @@ function MainPage() {
     fetchData()
   }, [])
 
+  // Fetch loans after user logs in (application receives valid userID)
   useEffect(() => {
     if (userID) {
       const fetchLoans = async () => {
@@ -48,6 +49,7 @@ function MainPage() {
 
   return (
     <div>
+      {/* Initial landing components: user login and create new user options */}
       {!loginStatus && 
       <Grid2 marginLeft={"10%"} marginRight={"10%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} height={"90vh"}>
         <motion.div className="text-xl"
@@ -90,6 +92,7 @@ function MainPage() {
         </motion.div>
       </Grid2>}
       
+       {/* Main page components: user's loan information after they login */}
       {loginStatus &&
         <motion.div 
           initial={{ opacity: 0 }} 
@@ -123,7 +126,6 @@ function MainPage() {
             idToUsername={idToUsername}
           />
           </Grid2>
-          
           
         </Grid2>
         </motion.div> }

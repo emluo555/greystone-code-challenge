@@ -16,7 +16,7 @@ export const getAllUsers = async () => {
       console.log(res)
       return res
     } catch (error) {
-      console.error('Error fetching users:', error);
+      alert('Error fetching users:', error);
     }
 }
 
@@ -40,7 +40,7 @@ export const createUser = async (username) => {
       console.log('User created:', res) 
       return res;
     } catch (error) {
-      console.error('Error creating user:', error.message)
+      alert('Error creating user:', error.message)
 
     }
 }
@@ -64,7 +64,7 @@ export const createLoan = async (amount, apr, term, status, owner_id) => {
         console.log('Loan created:', res) 
         return res
       } catch (error) {
-        console.error('Error creating loan:', error)
+        alert('Error creating loan:', error)
       }
 }
 
@@ -86,7 +86,7 @@ export const getUserLoans = async (user_id) => {
         console.log('All loans:', res)
         return res
       } catch (error) {
-        console.error('Error fetching loans:', error)
+        alert('Error fetching loans:', error)
       }
 }
 
@@ -107,11 +107,11 @@ export const getAmortizationTerm = async (loan_id,user_id) => {
         console.log('loan schedule:', res)
         return res
       } catch (error) {
-        console.error('Error fetching loan schedule:', error)
+        alert('Error fetching loan schedule:', error)
       }
 }
 
-// share loan
+// Share loan
 export const shareLoan = async (loan_id, owner_id, user_id) => {
     try {
         const response = await fetch(`https://gl-interview.azurewebsites.net/loans/${loan_id}/share?owner_id=${owner_id}&user_id=${user_id}`, { 
@@ -130,6 +130,6 @@ export const shareLoan = async (loan_id, owner_id, user_id) => {
         console.log('Loan shared:', res); 
         return res;
       } catch (error) {
-        console.error('Error sharing loan:', error)
+        alert('Error sharing loan:', error)
       }
 }

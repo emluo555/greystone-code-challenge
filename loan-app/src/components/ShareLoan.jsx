@@ -38,7 +38,7 @@ function ShareLoan({userID, loanSet, usernameToId}) {
         const newErrors = {}
         const newHelperText = {}
 
-        // check errors with loanID
+        // Validate loanID
         const loanIdInt = Number(loanID)
         if (!Number.isInteger(loanIdInt) || loanIdInt < 0) {
             newErrors["loanID"]=true
@@ -52,7 +52,7 @@ function ShareLoan({userID, loanSet, usernameToId}) {
             newErrors["loanID"]=false
         }
 
-        // check errors with user
+        // Validate entered username
         if (!shareToUsername) {
             newErrors["user"]="true"
             newHelperText["user"]="Please enter a username to share loan to"
@@ -71,13 +71,6 @@ function ShareLoan({userID, loanSet, usernameToId}) {
         if (newErrors["loanID"]==false && newErrors["user"]==false) {
             handleOpen()
         }
-        else {
-            // setTimeout(() => {
-            //     setLoanID('')
-            //     setShareToUsername('')
-            // }, 1000); 
-        }
-        
     }
 
     return (
@@ -85,9 +78,8 @@ function ShareLoan({userID, loanSet, usernameToId}) {
             <Button variant="contained" color="secondary"fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
                 <p>Share a Loan</p>
             </Button>
-            {showForm &&
-           <form onSubmit={handleShareLoan} id={"shareLoan"}>
-           <Grid2 display={'flex'} flexDirection={'column'} gap={2} paddingTop={2}>
+            {showForm && <form onSubmit={handleShareLoan} id={"shareLoan"}>
+                <Grid2 display={'flex'} flexDirection={'column'} gap={2} paddingTop={2}>
                     <TextField
                         label="Loan ID"
                         value={loanID}
@@ -111,12 +103,12 @@ function ShareLoan({userID, loanSet, usernameToId}) {
                         helperText={helperText.user}
                     />
                     <Button onClick={handleConfirm} variant="contained" color="primary">Confirm</Button>
+                    {/* Share loan confirmation modal pop-up */}
                     <Modal
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
-                        
                     >
                         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-200 bg-white border-2 border-black shadow-2xl p-5 flex flex-col justify-center content-center">
                             {!successSubmit && <>
@@ -129,7 +121,6 @@ function ShareLoan({userID, loanSet, usernameToId}) {
                             </>}
                             {successSubmit && <p>Loan successfully shared!</p>}
                         </Box>
-                        
                     </Modal>
                 </Grid2> 
             </form>}

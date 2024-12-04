@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TextField, Button,Grid2, Grid } from '@mui/material'
 import { getAmortizationTerm } from '../functions/apiCalls'
 import ScheduleTable from './ScheduleTable'
@@ -15,15 +15,14 @@ function LoanSchedule({loanSet, userID}) {
         e.preventDefault()
         const loan_id = Number(loanID)
 
-        if (!Number.isInteger(loan_id) || loan_id < 0) {
+        if (!Number.isInteger(loan_id) || loan_id < 0) { // loan_id input validation
             setErrors(true)
             setHelperText('Loan ID must be an positive whole number')
             setShowTable(false)
             setLoanSchedule([])
             setLoanID('')
         }
-        else if (loanSet.has(loan_id)) {
-            console.log('here')
+        else if (loanSet.has(loan_id)) { // load_id exists for this user
             const res = await getAmortizationTerm(loan_id, userID)
             if (res) {
                 setShowTable(true)
@@ -34,7 +33,7 @@ function LoanSchedule({loanSet, userID}) {
                 setHelperText('')
             }
         }
-        else {
+        else { // loan_id doesn't exist for this user
             setErrors(true)
             setHelperText('Please enter a Loan ID you have access to')
             setShowTable(false)
@@ -72,14 +71,12 @@ function LoanSchedule({loanSet, userID}) {
                         {showTable && <Button onClick={()=>{setShowTable(false); setDynamicPadding(1); setLoanID('')}} className="!rounded !font-bold !text-lg">X</Button>}
                     </Grid2>
                 </Grid2>
-                </form>
+            </form>
             
             {showTable && 
             <Grid2 paddingTop={2} display={'flex'}>
                 <ScheduleTable loanSchedule={loanSchedule}/>
-            </Grid2>
-                
-            }
+            </Grid2>}
         </Grid2>
     )
 }

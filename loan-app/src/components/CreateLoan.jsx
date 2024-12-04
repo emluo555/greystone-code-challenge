@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { TextField, Button, Box, Grid2, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
+import React, { useState } from 'react'
+import { TextField, Button, Grid2, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import { createLoan } from '../functions/apiCalls'
 
 function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
@@ -22,7 +22,6 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
         const newErrors = {}
         const newHelperText = {}
 
-        
         newErrors["amount"]= (!/^\d*\.?\d{0,2}$/.test(amount) || amount < 0) ? true : false
         newHelperText["amount"]= newErrors["amount"] ? "Amount must be a valid positive monetary value" : ''
         
@@ -46,7 +45,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
             }
         }
         else {
-            console.log('fail', newErrors, newHelperText)
+            console.log('failed', newErrors, newHelperText)
         }
         resetForm()
     }

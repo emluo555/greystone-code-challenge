@@ -1,4 +1,4 @@
-// Turn the json into hashmaps for easier lookup
+// Turn the json data into hashmaps for easier lookup
 export const makeUserMaps = (userData) => {
     const idToUsername = new Map()
     const usernameToID = new Map()
