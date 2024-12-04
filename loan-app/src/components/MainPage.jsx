@@ -50,12 +50,20 @@ function MainPage() {
     <div>
       {!loginStatus && 
       <Grid2 marginLeft={"10%"} marginRight={"10%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} height={"90vh"}>
-        <motion.div className="text-3xl font-bold underline"
+        <motion.div className="text-xl"
             initial={{ opacity: 0, y: -75 }} 
-            animate={{ opacity: 1, y: 0, transition:{ duration: 1 } }} 
+            animate={{ opacity: 1, y: 0, transition:{ duration: 0.9 } }} 
             >
           <div>
-          Welcome to Greystone's Loan Amortization Portal 
+          Welcome to
+          </div>
+        </motion.div>
+        <motion.div className="text-3xl font-bold underline"
+            initial={{ opacity: 0, y: -25 }} 
+            animate={{ opacity: 1, y: 0, transition:{ duration: 1, delay:0.2 } }} 
+            >
+          <div>
+          Greystone's Loan Amortization App 
           </div>
         </motion.div>
         <motion.div 
@@ -86,8 +94,8 @@ function MainPage() {
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1, y: 0, transition:{ duration: 1 }}} > 
-        <Grid2 display={"flex"} flexDirection={"column"} paddingX={'5%'} paddingY={'3%'} container>
-          <h2>Welcome, {username}!</h2>
+        <Grid2 display={"flex"} flexDirection={"column"} paddingX={'5%'} paddingY={'3%'} container gap={2}>
+          <h2 className='text-2xl font-bold pl-1'>Welcome, {username}!</h2>
           <Grid2 display={'flex'} width={'100%'} justifyContent={'center'}>
             <CreateLoan 
               owner_id={userID}

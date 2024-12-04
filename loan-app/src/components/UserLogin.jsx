@@ -26,7 +26,7 @@ function UserLogin({usernameToID, setUsername, setUserID,setLoginStatus}) {
       }
     return (
         <div>
-        <h2>Existing User:</h2>
+        <h2 className="text-lg pb-3">Existing User:</h2>
         <form onSubmit={handleExistingUserLogin}>
             <Grid2 display={"flex"} flexDirection={"column"} width={"30vw"} gap={2}>
             <TextField

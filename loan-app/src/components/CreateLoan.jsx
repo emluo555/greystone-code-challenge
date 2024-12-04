@@ -32,7 +32,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
 
     return (
        <Grid2 width={"50%"} paddingRight={'2%'}>
-            <Button variant="outlined" fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
+            <Button variant="contained" color="secondary" fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
                 <p>Create New Loan</p>
             </Button>
             {showForm && <form onSubmit={handleCreateLoan}>

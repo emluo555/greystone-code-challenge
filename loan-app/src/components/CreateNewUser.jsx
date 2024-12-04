@@ -31,7 +31,7 @@ function CreateNewUser({setUsername, setUserID, setIdToUsername,setUsernameToID,
 
     return (
         <div>
-        <h2>Create new User:</h2>
+        <h2 className="text-lg pb-3">Create New User:</h2>
         <form onSubmit={handleNewUser}>
         <Grid2 display={"flex"} flexDirection={"column"} width={"30vw"} gap={2}>
             <TextField
@@ -46,7 +46,7 @@ function CreateNewUser({setUsername, setUserID, setIdToUsername,setUsernameToID,
               helperText={helperText}
             />
             <Button type="submit" variant="contained" color="primary">
-              Create
+              Create New User
             </Button>
           </Grid2>
         </form>

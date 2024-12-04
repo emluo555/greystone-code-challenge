@@ -44,7 +44,7 @@ function LoanSchedule({loanSet, userID}) {
     }
 
     return (
-        <Grid2 borderRadius={5} paddingX={3} paddingY={dynamicPadding} alignContent={'center'} className="bg-gray-300">
+        <Grid2 borderRadius={3} paddingX={3} paddingY={dynamicPadding} alignContent={'center'} className="bg-gray-200">
             <form onSubmit={handleGetLoan}>
                 <Grid2 container spacing={0} width={"100%"}  >
                     <Grid2 width={'35%'} alignContent={'center'} >
@@ -62,7 +62,7 @@ function LoanSchedule({loanSet, userID}) {
                             required
                             error={errors}
                             helperText={helperText}
-                            className="bg-white"
+                            className="bg-white rounded"
                         />
                     </Grid2>
                     <Grid2 width={'27%'} alignContent={'center'} justifyContent={'center'} display={'flex'}>

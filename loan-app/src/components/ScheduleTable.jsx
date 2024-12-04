@@ -55,9 +55,11 @@ function ScheduleTable({loanSchedule}) {
                 rows={rows}
                 columns={columns}
                 initialState={{ pagination: { paginationModel }}}
-                pageSizeOptions={[10, 25, 50]}
+                pageSizeOptions={[5, 10, 25, 50]}
                 sx={{ 
                     border: 1, 
+                    borderColor: '#405373',
+                    paddingX: 2
                 }}
                 stickyHeader
                 getRowId={(row) => row.month}

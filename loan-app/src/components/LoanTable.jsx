@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper } from '@mui/material';
+import { Paper, Grid2 } from '@mui/material';
 
 
 function LoanTable({loanData, idToUsername}) {
     const rows = loanData
     const columns = [
-        { field: 'id', headerName: 'Loan ID', width: 100 },
-        { field: 'amount', headerName: 'Amount', type: 'number', width: 100 },
-        { field: 'apr', headerName: 'APR', type: 'number', width: 100 },
-        { field: 'term', headerName: 'Term', type: 'number', width: 100 },
-        { field: 'status', headerName: 'Status', type: 'string', width: 100 },
+        { field: 'id', headerName: 'Loan ID', flex: 0.5 },
+        { field: 'amount', headerName: 'Amount', type: 'number', flex: 1 },
+        { field: 'apr', headerName: 'APR', type: 'number', flex: 1 },
+        { field: 'term', headerName: 'Term', type: 'number', flex: 1 },
+        { field: 'status', headerName: 'Status', type: 'number', flex: 1 },
         {
           field: 'owner_id',
           headerName: 'Owned by',
+          type: 'number',
           description: 'This column has a value getter and is not sortable.',
           sortable: false,
-          width: 160,
+          flex: 1,
           valueGetter: (value) => idToUsername.get(value),
         },
       ];
@@ -24,7 +25,9 @@ function LoanTable({loanData, idToUsername}) {
 
     
     return (
-        <Paper sx={{ height: 400, width: '60%' }}>
+        <Grid2 borderRadius={3} paddingX={3} paddingY={1} paddingBottom={4} alignContent={'center'} className="bg-gray-300">
+            <h1 className='text-xl font-bold pl-1 pt-2 pb-3'>My Loans</h1>
+            <Paper sx={{ height: 400, width: '100%' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -35,12 +38,16 @@ function LoanTable({loanData, idToUsername}) {
                 pageSizeOptions={[5, 10]}
                 sx={{ 
                     border: 1, 
+                    borderColor: '#405373',
+                    paddingX:2
                 }}
                 getRowClassName={(params) =>
                     params.row.status === 'inactive' ? 'bg-gray-100' : ''
                  }
             />
-        </Paper>
+            </Paper>
+        </Grid2>
+        
     )
 
 }
