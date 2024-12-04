@@ -96,7 +96,7 @@ function MainPage() {
           animate={{ opacity: 1, y: 0, transition:{ duration: 1 }}} > 
         <Grid2 display={"flex"} flexDirection={"column"} paddingX={'5%'} paddingY={'3%'} container gap={2}>
           <h2 className='text-2xl font-bold pl-1'>Welcome, {username}!</h2>
-          <Grid2 display={'flex'} width={'100%'} justifyContent={'center'}>
+          <Grid2 display={'flex'} width={'100%'} justifyContent={'center'} marginBottom={1}>
             <CreateLoan 
               owner_id={userID}
               userLoans={userLoans}

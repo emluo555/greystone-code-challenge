@@ -15,7 +15,7 @@ function LoanSchedule({loanSet, userID}) {
         e.preventDefault()
         const loan_id = parseInt(loanID)
 
-        if (isNaN(loan_id) && loan_id >= 0) {
+        if (isNaN(loan_id) || loan_id < 0) {
             setErrors(true)
             setHelperText('Loan ID must be an positive integer')
             setShowTable(false)

@@ -8,17 +8,45 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
     const [termField, setTermField] = useState('')
     const [statusField, setStatusField] = useState('')
     const [showForm, setShowForm] = useState(false)
+    const [errors, setErrors] = useState({});
+    const [helperText, setHelperText] = useState({})
+    const [success, setSuccess] = useState(false)
 
     const handleCreateLoan = async (e) => {
         e.preventDefault()
+        setSuccess(false)
+        const amount = parseFloat(amountField)
+        const apr = parseFloat(aprField)
+        const term = parseInt(termField)
 
-        console.log(parseFloat(amountField), parseFloat(aprField), parseInt(termField), statusField, owner_id)
-        const res = await createLoan(parseFloat(amountField), parseFloat(aprField), parseInt(termField), statusField, owner_id)
-        if (res) {
-            console.log('success', res)
-            setUserLoans([...userLoans, res]) // add the new loan to the state variable
-            setLoanSet(loanSet.add(res.id))
-            setShowForm(false)
+        const newErrors = {}
+        const newHelperText = {}
+
+        
+        newErrors["amount"]= (isNaN(amount) || amount < 0) ? true : false
+        newHelperText["amount"]= (isNaN(amount) || amount < 0)  ? "Amount must be a positive monetary value" : ''
+        
+        newErrors["apr"]=(isNaN(apr) || apr < 0 ) ? true : false
+        newHelperText["apr"]= (isNaN(apr) || apr < 0 ) ? "APR must be positive number" : ''
+        
+        newErrors["term"]= (isNaN(term) || term < 0 ) ? true : false
+        newHelperText["term"]= (isNaN(term) || term < 0 ) ? "Term must be a positive whole number" : ''
+
+        setErrors(newErrors)
+        setHelperText(newHelperText)
+        
+        if(!newErrors["amount"] && !newErrors["apr"] && !newErrors["term"]) {
+            console.log(newErrors)
+            const res = await createLoan(amount, apr, term, statusField, owner_id)
+            if (res) {
+                console.log('success', res)
+                setUserLoans([...userLoans, res]) // add the new loan to the state variable
+                setLoanSet(loanSet.add(res.id))
+                setSuccess(true)
+            }
+        }
+        else {
+            console.log('fail', newErrors, newHelperText)
         }
         resetForm()
     }
@@ -32,7 +60,7 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
 
     return (
        <Grid2 width={"50%"} paddingRight={'2%'}>
-            <Button variant="contained" color="secondary" fullWidth onClick={()=>setShowForm(!showForm)} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
+            <Button variant="contained" color="secondary" fullWidth onClick={()=>{setShowForm(!showForm); setSuccess(false); setErrors({}); setHelperText({})}} className="!rounded-2xl !font-bold !normal-case !text-base !text-left">
                 <p>Create New Loan</p>
             </Button>
             {showForm && <form onSubmit={handleCreateLoan}>
@@ -45,6 +73,9 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         variant="outlined"
                         required
                         fullWidth
+                        id="outlined-error-helper-text"
+                        error={errors.amount}
+                        helperText={helperText.amount}
                     />
                     <TextField
                         label="Loan APR"
@@ -54,15 +85,21 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                         variant="outlined"
                         required
                         fullWidth
+                        id="outlined-error-helper-text"
+                        error={errors.apr}
+                        helperText={helperText.apr}
                     />
                     <TextField
-                        label="Loan Term"
+                        label="Loan Term (Months)"
                         value={termField}
                         onChange={(e) => setTermField(e.target.value)}
                         placeholder="Please enter loan term"
                         variant="outlined"
                         required
                         fullWidth
+                        id="outlined-error-helper-text"
+                        error={errors.term}
+                        helperText={helperText.term}
                     />
                     <FormControl fullWidth >
                         <InputLabel>Status</InputLabel>
@@ -70,14 +107,17 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
                             value={statusField}
                             label="Status"
                             onChange={(e) => setStatusField(e.target.value)}
+                            required
                         >
                             <MenuItem value={"active"}>Active</MenuItem>
                             <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
                     </FormControl>
+                    {success && <h1>Loan submitted successfully!</h1>}
                     <Button type="submit" variant="contained" color="primary">
                         Submit New Loan
                     </Button>
+                
                 </Grid2>
             </form>}
        </Grid2>
