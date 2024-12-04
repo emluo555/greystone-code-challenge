@@ -23,11 +23,11 @@ function CreateLoan({owner_id, userLoans, setUserLoans, loanSet, setLoanSet}) {
         const newHelperText = {}
 
         
-        newErrors["amount"]= (!Number.isInteger(amount) || amount < 0) ? true : false
-        newHelperText["amount"]= newErrors["amount"] ? "Amount must be a positive monetary value" : ''
+        newErrors["amount"]= (!/^\d*\.?\d{0,2}$/.test(amount) || amount < 0) ? true : false
+        newHelperText["amount"]= newErrors["amount"] ? "Amount must be a valid positive monetary value" : ''
         
-        newErrors["apr"]=(/^\d*\.?\d+$/.test(apr)|| apr < 0 ) ? true : false
-        newHelperText["apr"]= newErrors["apr"] ? "APR must be positive number" : ''
+        newErrors["apr"]=(!/^\d*\.?\d+$/.test(apr)|| apr < 0 ) ? true : false
+        newHelperText["apr"]= newErrors["apr"] ? "APR must be positive decimal or number" : ''
         
         newErrors["term"]= (!Number.isInteger(term) || term < 0 ) ? true : false
         newHelperText["term"]= newErrors["term"] ? "Term must be a positive whole number" : ''
