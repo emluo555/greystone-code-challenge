@@ -12,6 +12,7 @@ function ShareLoan({userID, loanSet, usernameToId}) {
     const handleClose = () => setOpen(false);
     const [errors, setErrors] = useState({});
     const [helperText, setHelperText] = useState({})
+    const [successSubmit, setSuccessSubmit] = useState(false)
 
     const handleShareLoan = async (e) => {
         e.preventDefault()
@@ -24,15 +25,22 @@ function ShareLoan({userID, loanSet, usernameToId}) {
         const res = await shareLoan(loanIDInt, userIDInt, shareUserIDInt)
         if (res) { 
             console.log('success', res)
+            setSuccessSubmit(true)
+            // setTimeout(() => {
+            //     handleClose()
+            //     }, 5000); 
         }
+        setLoanID('')
+        setShareToUsername('')
     }
     const handleConfirm = () => {
+        setSuccessSubmit(false)
         const newErrors = {}
         const newHelperText = {}
 
         // check errors with loanID
-        const loanIdInt = parseInt(loanID)
-        if (isNaN(loanIdInt) || loanIdInt < 0) {
+        const loanIdInt = Number(loanID)
+        if (!Number.isInteger(loanIdInt) || loanIdInt < 0) {
             newErrors["loanID"]=true
             newHelperText["loanID"]="Loan ID must be a positive integer"
         }
@@ -60,7 +68,7 @@ function ShareLoan({userID, loanSet, usernameToId}) {
         setErrors(newErrors)
         setHelperText(newHelperText)
 
-        if (errors["loanID"]==false && errors["user"]==false) {
+        if (newErrors["loanID"]==false && newErrors["user"]==false) {
             handleOpen()
         }
         else {
@@ -110,13 +118,16 @@ function ShareLoan({userID, loanSet, usernameToId}) {
                         aria-describedby="modal-modal-description"
                         
                     >
-                        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-white border-2 border-black shadow-2xl p-4">
-                            <p> Are you sure you want to share loan {loanID} with {shareToUsername} </p>
+                        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-200 bg-white border-2 border-black shadow-2xl p-5 flex flex-col justify-center content-center">
+                            {!successSubmit && <>
+                            <p className="pb-5"> Are you sure you want to share Loan {loanID} with {shareToUsername}? </p>
                             <Button onClick={() => {
                                 document.querySelector('#shareLoan').requestSubmit(); 
-                            }} variant="contained" color="primary">
+                            }} variant="contained" color="primary" >
                                 Share Loan
                             </Button>
+                            </>}
+                            {successSubmit && <p>Loan successfully shared!</p>}
                         </Box>
                         
                     </Modal>

@@ -13,11 +13,11 @@ function LoanSchedule({loanSet, userID}) {
 
     const handleGetLoan = async (e) => {
         e.preventDefault()
-        const loan_id = parseInt(loanID)
+        const loan_id = Number(loanID)
 
-        if (isNaN(loan_id) || loan_id < 0) {
+        if (!Number.isInteger(loan_id) || loan_id < 0) {
             setErrors(true)
-            setHelperText('Loan ID must be an positive integer')
+            setHelperText('Loan ID must be an positive whole number')
             setShowTable(false)
             setLoanSchedule([])
             setLoanID('')
@@ -44,7 +44,7 @@ function LoanSchedule({loanSet, userID}) {
     }
 
     return (
-        <Grid2 borderRadius={3} paddingX={3} paddingY={dynamicPadding} alignContent={'center'} className="bg-gray-200">
+        <Grid2 flexGrow={1} borderRadius={3} paddingX={3} paddingY={dynamicPadding} alignContent={'center'} className="bg-gray-200">
             <form onSubmit={handleGetLoan}>
                 <Grid2 container spacing={0} width={"100%"}  >
                     <Grid2 width={'35%'} alignContent={'center'} >

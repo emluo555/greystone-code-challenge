@@ -25,7 +25,7 @@ function LoanTable({loanData, idToUsername}) {
 
     
     return (
-        <Grid2 borderRadius={3} paddingX={3} paddingY={1} paddingBottom={4} alignContent={'center'} className="bg-gray-300">
+        <Grid2 flexGrow={1} borderRadius={3} paddingX={3} paddingY={1} paddingBottom={4} alignContent={'center'} className="bg-gray-300">
             <h1 className='text-xl font-bold pl-1 pt-2 pb-3'>My Loans</h1>
             <Paper sx={{ height: 400, width: '100%' }}>
             <DataGrid

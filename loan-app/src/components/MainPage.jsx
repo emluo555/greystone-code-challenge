@@ -110,15 +110,19 @@ function MainPage() {
               usernameToId={usernameToID}
             />
           </Grid2>
-          <LoanSchedule
-            loanData={userLoans}
-            loanSet={loanSet}
-            userID={userID}
-          />
+          <Grid2 display={'flex'} width={'100%'}>
+            <LoanSchedule
+              loanData={userLoans}
+              loanSet={loanSet}
+              userID={userID}
+            />
+          </Grid2>
+          <Grid2 display={'flex'} width={'100%'}>
           <LoanTable 
             loanData={userLoans}
             idToUsername={idToUsername}
           />
+          </Grid2>
           
           
         </Grid2>
